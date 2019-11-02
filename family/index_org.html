@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>商山金氏世譜</title>
+<style type="text/css">
+	html {font-size:3em}
+	button {font-size:1em}
+	#hTitle {font-size:2em}
+</style>
+
+<script>
+	var genData = [ [1, 21, [2], "宕(탕) 隱庵(은암) 묘지(땅골)", "配 光陽李氏 묘지(생비량)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[2, 22, [3], "尙 보(상보) 遠慕濟(원모제) 묘지(땅골)", "配 咸安李氏 묘지(쌍봉)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[3, 23, [4], "坰(경) 松軒(송헌) 묘지(선조밑)", "配 善山金氏 묘지(쌍봉)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[4, 24, [5], "以鍊(이련) 菊圃(국포) 묘지(땅골)" , "配 順興安氏 묘지(옆)<br>配 安東權氏 묘지(항골)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[5, 25, [6], "珽漢(정한) 觀瀾軒(관란헌) 묘지(조부밑)" , "配 星山李氏 묘지(쌍봉)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[6, 26, [7], "履一(이일) 梅湖(매호) 묘지(땅골 조모옆)" , "配 晋陽河氏 묘지(쌍봉) ",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[7, 27, [8], "언        畏庵(외암) 묘지(땅골 선조밑)" , "配 義城金氏 묘지(손항)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[8, 28, [9,15], "基灝(기호) 黙軒(묵헌) 묘지(율현)" , "配 草溪鄭氏 묘지(땅골)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[9, 29, [10], "正錘(정추) 묘지(땅골 3분 쌍봉)" , "配 晋陽姜氏 묘지(이교→이장)<br>配 陜川李氏 묘지(땅골)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[10, 30, [11], "東淳(동순) 生父 秉鎰(병일) 묘지(간이)", "海州鄭氏 묘지(항골)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[11, 31, [12], "相郁(상욱) 晦川(회천) 生父 成淳(성순) 묘지(땅골)" , "配 碧珍李氏 묘지(쌍봉)<br>配 南原梁氏 묘지(청사돌)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[12, 32, [13,14], "錫熙(석희) 復庵(복암) 묘지(땅골)" , "全義李氏 묘지(땅골 쌍봉)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[13, 33, [], "聲培(성배) 묘지(땅골)" , "",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[14, 33, [], "泰均(태균) 묘지(서울)" , "",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[15, 29, [16], "秉鎰(병일) 석곡할아버지 묘지(둔철)" , "配 鐵城李氏 묘지(간이)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[16, 30, [17], "成淳(성순) 시만할아버지 묘지(간이)" , "配 安東權氏(섬안할머니) 묘지(간이) <br>配 陽川許氏(덕산시만할머니) 묘지(청사돌)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[17, 31, [18], "昌柱(창주) 못안할아버지 묘지(청사돌)" , "配 晋陽姜氏(못안할머니) 묘지(청사돌 합봉)",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>'],
+			[18, 32, [], "台熙(태희) 生父 相郁(상욱) 묘지(대전국립묘지)" , "",'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.8005607849954!2d127.29614236611404!3d36.365609449739864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ab4acaf1d0751%3A0xc18b4691a8417bb7!2z6rWt66a964yA7KCE7ZiE7Lap7JuQ!5e0!3m2!1sko!2skr!4v1473693536393" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>']
+			
+		];
+	var currentGen = 0;
+
+	function Start() {
+		var doc = document.getElementById("dataP1");
+		currentGen = 1;
+		before = 1;
+		setinfo(currentGen);
+	}
+	
+	function backGen() {
+		if(currentGen == 1) return;
+		clearData();
+		for(var i=0; i<genData.length;i++) {
+			for(var j=0; j<genData[i][2].length; j++) {
+				if(currentGen == genData[i][2][j]) {
+					setinfo(genData[i][0]);
+					return;
+				}
+				
+			}
+		}
+	}
+
+	function clearData() {
+		document.getElementById("dataP1").innerHTML = "";
+		document.getElementById("dataP2").innerHTML = "";
+		document.getElementById("dataP3").innerHTML = "";
+		document.getElementById("dataP4").innerHTML = "";
+	}
+
+	function setinfo(gen_id)
+	{
+		for(var i=0; i<genData.length ; i++)
+		{
+			if(gen_id == genData[i][0])
+			{
+				currentGen = gen_id;
+				var doc1 = document.getElementById("dataP1");
+				var inData1 = "<div id='"+gen_id+"'>" + genData[i][1] + "世 "+ genData[i][3] + "</div>";
+				doc1.innerHTML = inData1;
+				
+				var doc2 = document.getElementById("dataP2");
+				doc2.innerHTML = genData[i][5];
+				
+				var doc3 = document.getElementById("dataP3");
+				var inData3 = "<div id='"+gen_id+"_wife'>"+genData[i][4]+"</div>";
+				doc3.innerHTML = inData3;
+								
+
+				var doc4 = document.getElementById("dataP4");
+				var next = genData[i][2];
+				var len = next.length;
+				if(len == 0) return;
+				for(var n=0; n<len; n++) {
+				
+					for(var m=0; m<genData.length; m++)
+					{
+						if(next[n] == null || genData[m] == null || genData[m][0] == null) continue;
+						if(next[n] == genData[m][0])
+						{
+							var inData4 = "<button id='"+genData[m][0]+"_next' onClick='clearData();setinfo("+genData[m][0]+")'>" + genData[m][1] + "世 "+ genData[m][3] + "</button><br><br>";
+							doc4.innerHTML += inData4;
+							break;
+						}
+					}
+				}
+
+
+				return;
+			}
+		}
+	}
+</script>
+</head>
+
+<body onLoad="Start()">
+<center>
+<div id="hTitle">商山金氏世譜</div>
+<br>
+<div id="dataP1"></div>
+<br>
+<div id="dataP2"></div>
+<br>
+<div id="dataP3"></div>
+<div id="nGenTitle"><br>다음 세대</div>
+<div id="dataP4"></div>
+<br>
+<button id="back" onClick="backGen()">이전</button>
+</center>
+</body>
+</html>

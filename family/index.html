@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>商山金氏世譜</title>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<script src="js/family.js"></script>
+</head>
+
+<body onLoad="Start()">
+
+<!-- PAGE ONE -->
+<div id="gen_tree" style="display:block; position:absolute; top:0px; width:100%; height:100%; background-color:#fffff5; background-image:url('image/background.jpg');background-repeat: repeat-x;">
+<center>
+<div class="mTitle"><font color="#ffffff">商山金氏世譜</font></div><br><br>
+<div id="gen_tree_content" class="tree" style="width:940px;">
+	<ul>
+		<li>
+			<a onClick="SelectGen(1);">宕(탕) 隱庵(은암)</a><br>21世 
+			<ul>
+				<li>
+					<a onClick="SelectGen(2);">尙 보(상보) 遠慕濟(원모제)</a><br>22世 
+					<ul>
+						<li>
+							<a onClick="SelectGen(3);">坰(경) 松軒(송헌)</a><br>23世 
+							<ul>
+								<li>
+									<a onClick="SelectGen(4);">以鍊(이련) 菊圃(국포)</a><br>24世 
+									<ul>
+										<li>
+											<a onClick="SelectGen(5);">珽漢(정한) 觀瀾軒(관란헌)</a><br>25世 
+											<ul>
+												<li>
+													<a onClick="SelectGen(6);">履一(이일) 梅湖(매호)</a><br>26世 
+													<ul>
+														<li>
+															<a onClick="SelectGen(7);">언        畏庵(외암)</a><br>27世 
+															<ul>
+																<li>
+																	<a onClick="SelectGen(8);">基灝(기호) 黙軒(묵헌)</a><br>28世 
+																	<ul>
+																		<li>
+																			<a onClick="SelectGen(9);">正錘(정추)</a><br>29世 
+																			<ul>
+																				<li>
+																					<a onClick="SelectGen(10);">東淳(동순)<br>生父 秉鎰(병일) 석곡할아버지</a><br>30世 
+																					<ul>
+																						<li>
+																							<a onClick="SelectGen(11);">相郁(상욱) 晦川(회천)<br>生父 成淳(성순) 시만할아버지</a><br>31世 
+																							<ul>
+																								<li>
+																									<a onClick="SelectGen(12);">錫熙(석희) 復庵(복암)</a><br>32世 
+																									<ul>
+																										<li>
+																											<a onClick="SelectGen(13);">聲培(성배)</a><br>33世 
+																										</li>
+																										<li>
+																											<a onClick="SelectGen(14);">廉培(염배)</a><br>33世 
+																										</li>
+																										<li>
+																											<a onClick="SelectGen(19);">泰均(태균)</a><br>33世 
+																										</li>
+																									</ul>	
+																								</li>
+																							</ul>	
+																						</li>
+																					</ul>	
+																				</li>
+																			</ul>																			
+																		</li>
+																		<li>
+																			<a onClick="SelectGen(15);">秉鎰(병일) 석곡할아버지</a><br>29世 
+																			<ul>
+																				<li>
+																					<a onClick="SelectGen(16);">成淳(성순) 시만할아버지</a><br>30世 
+																					<ul>
+																						<li>
+																							<a onClick="SelectGen(17);">昌柱(창주) 못안할아버지</a><br>31世 
+																							<ul>
+																								<li>
+																									<a onClick="SelectGen(18);">台熙(태희) 生父 相郁(상욱)</a><br>32世 
+																								</li>
+																							</ul>
+																						</li>
+																					</ul>
+																				</li>
+																			</ul>
+																		</li>
+																	</ul>
+																</li>
+															</ul>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+</center>
+</div>
+
+<!-- PAGE TWO -->
+<center>
+<div id="contentBody" style="display:none;background-color:#fffff5;);background-color:#fffff5; background-image:url('image/background.jpg');background-repeat: repeat-x;" class="hContent">
+<div class="hTitle"><font color="#ffffff">商山金氏世譜</font></div>
+<br>
+<div id="dataP1"></div>
+<br>
+<div id="imgBlock1" style="background-color:#ad9689;width:100%;height:5px;"></div>
+<br>
+<div id="dataP3"></div>
+<div id="imgBlock2" style="background-color:#ad9689;width:100%;height:5px;"></div>
+<div id="bGenTitle">이전 세대</div>
+<div id="dataP2"></div>
+<div id="imgBlock3" style="background-color:#ad9689;width:100%;height:5px;"></div>
+<div id="nGenTitle">다음 세대</div>
+<div id="dataP4"></div>
+<br>
+<div id="imgBlock4" style="background-color:#ad9689;width:100%;height:5px;"></div>
+<button id="back" onClick="backGenTree()">&nbsp;처음으로&nbsp;</button><br><br>
+</div>
+</center>
+
+<!-- PAGE THREE -->
+<div id="map_scr" style="display:none;position:absolute;left:0px;top:100px;width:100%;height;100%">
+<center>
+<div id="map_loading" class="hTitle" style="position:absolute;top:200px;width:100%;z-index:-1"><center>Loading...</center></div>
+<div id="map_data"  style="left:0px;top:40px;width:100%;height;100%;z-index:1"></div>
+<div id="map_back" style="width:100%;"><br><button id="map_btn" style="font-size:2.5em" onClick="invisibleMap()">&nbsp;이전으로&nbsp;</button></div>
+</center>
+</div>
+<div id="copyright" style="bottom:0px;width:100%;z-index:1;font-size:1.2em;"><center>Copyright 2017 by JONGBAEK, 본 저작물은 "문화포털"에서 서비스 되는 전통문양을 활용하였습니다.</center></div>
+
+</body>
+</html>
