@@ -393,6 +393,97 @@
   .mobile-generation-cards .tree-name { margin: 0; font-size: 16px; }
   .mobile-generation-cards .mobile-parent { margin-top: 5px; padding: 0; font-size: 10px; }
   .mobile-generation-cards .tree-action { display: none; }
+
+  /* Full graphic tree appears only inside the mobile modal. */
+  .lineage-popup-intro {
+    padding: 12px 18px;
+    color: var(--muted);
+    background: #f1eee6;
+    border-bottom: 1px solid var(--line);
+    font-size: 11px;
+    text-align: center;
+  }
+  .lineage-popup-scroll {
+    width: 100%;
+    max-width: 100%;
+    height: min(68dvh, 720px);
+    overflow: auto;
+    padding: 18px 12px 42px;
+    background: var(--paper);
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .lineage-popup-scroll .family-tree { width: max-content; min-width: 100%; max-width: none; }
+  .lineage-popup-scroll .family-tree ul {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    padding: 38px 0 0;
+    border: 0;
+    background: none;
+  }
+  .lineage-popup-scroll .family-tree > ul { padding-top: 12px; }
+  .lineage-popup-scroll .family-tree li,
+  .lineage-popup-scroll .family-tree li:only-child {
+    position: relative;
+    width: auto;
+    min-width: 190px;
+    padding: 38px 6px 0;
+    list-style: none;
+    text-align: center;
+  }
+  .lineage-popup-scroll .family-tree > ul > li { padding-top: 0; }
+  .lineage-popup-scroll .family-tree li::before,
+  .lineage-popup-scroll .family-tree li::after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    width: 50%;
+    height: 38px;
+    border: 0;
+    border-top: 2px solid rgba(181, 138, 66, .55);
+  }
+  .lineage-popup-scroll .family-tree li::before { right: 50%; }
+  .lineage-popup-scroll .family-tree li::after { left: 50%; border-left: 2px solid rgba(181, 138, 66, .55); }
+  .lineage-popup-scroll .family-tree li:only-child::before,
+  .lineage-popup-scroll .family-tree li:only-child::after,
+  .lineage-popup-scroll .family-tree > ul > li::before,
+  .lineage-popup-scroll .family-tree > ul > li::after { display: none; }
+  .lineage-popup-scroll .family-tree li:only-child { padding-top: 0; }
+  .lineage-popup-scroll .family-tree li:first-child::before,
+  .lineage-popup-scroll .family-tree li:last-child::after { border-top-color: transparent; }
+  .lineage-popup-scroll .family-tree li:last-child::before { border-right: 2px solid rgba(181, 138, 66, .55); border-radius: 0 10px 0 0; }
+  .lineage-popup-scroll .family-tree li:first-child::after { border-radius: 10px 0 0 0; }
+  .lineage-popup-scroll .family-tree ul ul::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 38px;
+    border-left: 2px solid rgba(181, 138, 66, .55);
+  }
+  .lineage-popup-scroll .family-tree ul ul::after { content: none; }
+  .lineage-popup-scroll .tree-person {
+    position: relative;
+    display: inline-flex;
+    width: 178px;
+    min-height: 104px;
+    margin: 0;
+    padding: 14px;
+  }
+  .lineage-popup-scroll .tree-person::before {
+    top: -7px;
+    left: calc(50% - 6px);
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--paper);
+    box-shadow: none;
+  }
   .family-tree,
   .family-tree ul {
     width: 100%;

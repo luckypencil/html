@@ -112,6 +112,10 @@
   };
 
   window.showLineage = function () {
+    if (window.matchMedia("(max-width: 640px)").matches) {
+      openLineageGraph();
+      return;
+    }
     if (history.state && history.state.view === "detail") {
       pendingArchiveTarget = "lineage";
       history.back();
@@ -122,6 +126,7 @@
   };
 
   window.showPerson = function (id) {
+    closeMap();
     var person = getPerson(id);
     if (!person) return;
     var parent = getParent(id);
@@ -174,6 +179,19 @@
   window.openMap = function (id) { var person = getPerson(id); if (person && person[5]) showModal("묘역 위치", person[5]); };
   window.openMapForSpouse = function (id, index) { var person = getPerson(id); if (person && person[4][index + 2]) showModal("배우자 묘역 위치", person[4][index + 2]); };
   window.openImage = function (photo, title) { showModal(title + " 사진", '<img src="image/' + encodeURIComponent(photo) + '" alt="' + escapeHtml(title) + ' 묘역 사진" style="width:100%;max-height:72vh;object-fit:contain;background:#111">'); };
+  window.openLineageGraph = function () {
+    var source = document.querySelector("#lineageList .family-tree");
+    if (!source) return;
+    showModal("전체 계보", '<div class="lineage-popup-intro">두 손가락이나 한 손가락으로 그래프를 이동해 전체 계보를 확인하세요.</div><div class="lineage-popup-scroll">' + source.outerHTML + '</div>');
+    requestAnimationFrame(function () {
+      var scroller = document.querySelector(".lineage-popup-scroll");
+      var root = scroller && scroller.querySelector(".family-tree > ul > li > .tree-person");
+      if (!scroller || !root) return;
+      var rootRect = root.getBoundingClientRect();
+      var scrollRect = scroller.getBoundingClientRect();
+      scroller.scrollLeft = Math.max(0, rootRect.left - scrollRect.left + scroller.scrollLeft + (rootRect.width / 2) - (scroller.clientWidth / 2));
+    });
+  };
   window.closeMap = function () {
     var modal = document.getElementById("mapModal");
     if (!modal || modal.hidden) return;
