@@ -464,6 +464,7 @@
   .lineage-popup-scroll .family-tree li:only-child { padding-top: 0; }
   .lineage-popup-scroll .family-tree li:first-child::before,
   .lineage-popup-scroll .family-tree li:last-child::after { border-top-color: transparent; }
+  .lineage-popup-scroll .family-tree li:last-child::after { display: none; }
   .lineage-popup-scroll .family-tree li:last-child::before { border-right: 2px solid rgba(181, 138, 66, .55); border-radius: 0 10px 0 0; }
   .lineage-popup-scroll .family-tree li:first-child::after { border-radius: 10px 0 0 0; }
   .lineage-popup-scroll .family-tree ul ul::before {
