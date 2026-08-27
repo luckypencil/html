@@ -324,6 +324,75 @@
   .mobile-origin { color: var(--forest); font-weight: 700; }
   .mobile-flow-card.search-muted { opacity: .18; }
   .mobile-flow-card.search-match { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(181, 138, 66, .18), 0 10px 26px rgba(26, 42, 36, .1); }
+
+  /* Readable generation list: the original mobile hierarchy, with subtle lineage context. */
+  .mobile-lineage-flow {
+    padding: 8px 0 4px;
+    overflow: visible;
+  }
+  .mobile-lineage-flow::before { display: none; }
+  .mobile-generation-row {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+  }
+  .mobile-generation-label {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  .mobile-generation-label::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 42px;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: rgba(181, 138, 66, .48);
+  }
+  .mobile-generation-row:last-child .mobile-generation-label::after { display: none; }
+  .mobile-generation-label span {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    color: var(--forest);
+    background: var(--paper);
+    border: 1px solid rgba(181, 138, 66, .42);
+    border-radius: 50%;
+    font-family: "Noto Serif KR", serif;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .mobile-generation-cards {
+    display: grid;
+    min-width: 0;
+    gap: 9px;
+    padding-bottom: 18px;
+  }
+  .mobile-generation-cards .mobile-flow-card {
+    position: relative;
+    width: 100%;
+    min-height: 88px;
+    padding: 15px 44px 14px 16px;
+    box-shadow: 0 5px 18px rgba(26, 42, 36, .055);
+  }
+  .mobile-generation-cards .mobile-flow-card::after {
+    content: "→";
+    position: absolute;
+    top: 50%;
+    right: 17px;
+    color: var(--gold);
+    transform: translateY(-50%);
+  }
+  .mobile-generation-cards .tree-name { margin: 0; font-size: 16px; }
+  .mobile-generation-cards .mobile-parent { margin-top: 5px; padding: 0; font-size: 10px; }
+  .mobile-generation-cards .tree-action { display: none; }
   .family-tree,
   .family-tree ul {
     width: 100%;
