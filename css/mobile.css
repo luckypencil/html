@@ -1,10 +1,13 @@
 /* Mobile-first refinements layered over the desktop design. */
 .hero::before {
   opacity: .32;
-  background:
+  background-image:
     radial-gradient(circle at 18% 24%, rgba(255, 255, 255, .08) 0 1px, transparent 2px),
-    linear-gradient(135deg, transparent 0 47%, rgba(255, 255, 255, .025) 48% 49%, transparent 50% 100%);
-  background-size: 32px 32px, 88px 88px;
+    linear-gradient(135deg, transparent 0 47%, rgba(255, 255, 255, .025) 48% 49%, transparent 50% 100%),
+    url("../image/background.jpg");
+  background-repeat: repeat, repeat, repeat-x;
+  background-position: 0 0, 0 0, center;
+  background-size: 32px 32px, 88px 88px, auto 100%;
 }
 .hero h1 {
   font-size: clamp(38px, 5vw, 64px);
