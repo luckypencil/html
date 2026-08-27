@@ -189,6 +189,12 @@
 .path-arrow { flex: 0 0 auto; color: var(--gold); font-size: 20px; }
 
 @media (max-width: 640px) {
+  .hero::before {
+    opacity: .2;
+    background-repeat: repeat, repeat, repeat;
+    background-position: 0 0, 0 0, center top;
+    background-size: 32px 32px, 88px 88px, auto 170px;
+  }
   html { scroll-padding-top: 76px; }
   html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
   body { -webkit-text-size-adjust: 100%; }
