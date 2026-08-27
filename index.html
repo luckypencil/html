@@ -1,142 +1,35 @@
-﻿<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="ko">
 <head>
-<title>商山金氏世譜</title>
-<link rel="stylesheet" type="text/css" href="css/styles.css">
-<script src="js/family.js"></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#18392f">
+  <meta name="description" content="상산김씨 21세부터 33세까지의 계보와 묘역 기록을 살펴보는 디지털 족보입니다.">
+  <meta property="og:type" content="website"><meta property="og:title" content="상산김씨 세보"><meta property="og:description" content="세대를 잇는 이름, 기억을 잇는 기록"><meta property="og:image" content="image/og.png">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="상산김씨 세보"><meta name="twitter:description" content="세대를 잇는 이름, 기억을 잇는 기록"><meta name="twitter:image" content="image/og.png">
+  <title>상산김씨 세보 | 가문의 기록</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css"><link rel="stylesheet" href="css/mobile.css"><script src="js/family.js" defer></script><script src="js/app.js" defer></script>
 </head>
-
-<body onLoad="Start()">
-
-<!-- PAGE ONE -->
-<div id="gen_tree" style="display:block; position:absolute; top:0px; width:100%; height:100%; background-color:#fffff5; background-image:url('image/background.jpg');background-repeat: repeat-x;">
-<center>
-<div class="mTitle"><font color="#ffffff">商山金氏世譜</font></div><br><br>
-<div id="gen_tree_content" class="tree" style="width:940px;">
-	<ul>
-		<li>
-			<a onClick="SelectGen(1);">宕(탕) 隱庵(은암)</a><br>21世 
-			<ul>
-				<li>
-					<a onClick="SelectGen(2);">尙 보(상보) 遠慕濟(원모제)</a><br>22世 
-					<ul>
-						<li>
-							<a onClick="SelectGen(3);">坰(경) 松軒(송헌)</a><br>23世 
-							<ul>
-								<li>
-									<a onClick="SelectGen(4);">以鍊(이련) 菊圃(국포)</a><br>24世 
-									<ul>
-										<li>
-											<a onClick="SelectGen(5);">珽漢(정한) 觀瀾軒(관란헌)</a><br>25世 
-											<ul>
-												<li>
-													<a onClick="SelectGen(6);">履一(이일) 梅湖(매호)</a><br>26世 
-													<ul>
-														<li>
-															<a onClick="SelectGen(7);">언        畏庵(외암)</a><br>27世 
-															<ul>
-																<li>
-																	<a onClick="SelectGen(8);">基灝(기호) 黙軒(묵헌)</a><br>28世 
-																	<ul>
-																		<li>
-																			<a onClick="SelectGen(9);">正錘(정추)</a><br>29世 
-																			<ul>
-																				<li>
-																					<a onClick="SelectGen(10);">東淳(동순)<br>生父 秉鎰(병일) 석곡할아버지</a><br>30世 
-																					<ul>
-																						<li>
-																							<a onClick="SelectGen(11);">相郁(상욱) 晦川(회천)<br>生父 成淳(성순) 시만할아버지</a><br>31世 
-																							<ul>
-																								<li>
-																									<a onClick="SelectGen(12);">錫熙(석희) 復庵(복암)</a><br>32世 
-																									<ul>
-																										<li>
-																											<a onClick="SelectGen(13);">聲培(성배)</a><br>33世 
-																										</li>
-																										<li>
-																											<a onClick="SelectGen(14);">廉培(염배)</a><br>33世 
-																										</li>
-																										<li>
-																											<a onClick="SelectGen(19);">泰均(태균)</a><br>33世 
-																										</li>
-																									</ul>	
-																								</li>
-																							</ul>	
-																						</li>
-																					</ul>	
-																				</li>
-																			</ul>																			
-																		</li>
-																		<li>
-																			<a onClick="SelectGen(15);">秉鎰(병일) 석곡할아버지</a><br>29世 
-																			<ul>
-																				<li>
-																					<a onClick="SelectGen(16);">成淳(성순) 시만할아버지</a><br>30世 
-																					<ul>
-																						<li>
-																							<a onClick="SelectGen(17);">昌柱(창주) 못안할아버지</a><br>31世 
-																							<ul>
-																								<li>
-																									<a onClick="SelectGen(18);">台熙(태희) 生父 相郁(상욱)</a><br>32世 
-																								</li>
-																							</ul>
-																						</li>
-																					</ul>
-																				</li>
-																			</ul>
-																		</li>
-																	</ul>
-																</li>
-															</ul>
-														</li>
-													</ul>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</li>
-	</ul>
-</div>
-</center>
-</div>
-
-<!-- PAGE TWO -->
-<center>
-<div id="contentBody" style="display:none;background-color:#fffff5;);background-color:#fffff5; background-image:url('image/background.jpg');background-repeat: repeat-x;" class="hContent">
-<div class="hTitle"><font color="#ffffff">商山金氏世譜</font></div>
-<br>
-<div id="dataP1"></div>
-<br>
-<div id="imgBlock1" style="background-color:#ad9689;width:100%;height:5px;"></div>
-<br>
-<div id="dataP3"></div>
-<div id="imgBlock2" style="background-color:#ad9689;width:100%;height:5px;"></div>
-<div id="bGenTitle">이전 세대</div>
-<div id="dataP2"></div>
-<div id="imgBlock3" style="background-color:#ad9689;width:100%;height:5px;"></div>
-<div id="nGenTitle">다음 세대</div>
-<div id="dataP4"></div>
-<br>
-<div id="imgBlock4" style="background-color:#ad9689;width:100%;height:5px;"></div>
-<button id="back" onClick="backGenTree()">&nbsp;처음으로&nbsp;</button><br><br>
-</div>
-</center>
-
-<!-- PAGE THREE -->
-<div id="map_scr" style="display:none;position:absolute;left:0px;top:100px;width:100%;height;100%">
-<center>
-<div id="map_loading" class="hTitle" style="position:absolute;top:200px;width:100%;z-index:-1"><center>Loading...</center></div>
-<div id="map_data"  style="left:0px;top:40px;width:100%;height;100%;z-index:1"></div>
-<div id="map_back" style="width:100%;"><br><button id="map_btn" style="font-size:2.5em" onClick="invisibleMap()">&nbsp;이전으로&nbsp;</button></div>
-</center>
-</div>
-<div id="copyright" style="bottom:0px;width:100%;z-index:1;font-size:1.2em;"><center>Copyright 2017 by JONGBAEK, 본 저작물은 "문화포털"에서 서비스 되는 전통문양을 활용하였습니다.</center></div>
-
+<body>
+  <a class="skip-link" href="#main">본문으로 바로가기</a>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="상산김씨 세보 홈" onclick="showArchive(); return false;"><span class="brand-mark" aria-hidden="true">金</span><span><strong>商山金氏世譜</strong><small>상산김씨 세보</small></span></a>
+    <button class="header-action" type="button" onclick="showLineage()">전체 계보</button>
+  </header>
+  <main id="main">
+    <section id="archiveView" class="archive-view">
+      <div class="hero">
+        <div class="hero-copy"><p class="eyebrow">THE SANGSAN KIM FAMILY ARCHIVE</p><h1>세대를 잇는 이름,<br><em>기억을 잇는 기록</em></h1><p class="hero-description">21세부터 33세까지 이어진 가문의 계보와 묘역 기록을 한곳에 모았습니다. 이름을 선택해 인물과 다음 세대의 이야기를 살펴보세요.</p><div class="hero-stats" aria-label="아카이브 요약"><div><strong>13</strong><span>기록 세대</span></div><div><strong>19</strong><span>인물 기록</span></div><div><strong>40+</strong><span>현장 사진</span></div></div></div>
+        <div class="hero-visual" aria-hidden="true"><div class="seal">商山<br>金氏</div><p>뿌리를 기억하고<br>다음 세대에 전합니다</p></div>
+      </div>
+      <section id="lineage" class="explorer" aria-labelledby="explorerTitle">
+        <div class="section-heading"><div><p class="eyebrow">FAMILY LINEAGE</p><h2 id="explorerTitle">세대별 계보</h2></div><label class="search-box"><span class="sr-only">이름 또는 호로 검색</span><span aria-hidden="true">⌕</span><input id="personSearch" type="search" placeholder="이름 또는 호로 검색" autocomplete="off"></label></div>
+        <p class="section-note">카드를 선택하면 사진, 배우자와 묘역 정보를 확인할 수 있습니다.</p><div id="lineageList" class="lineage-list" aria-live="polite"></div>
+      </section>
+    </section>
+    <section id="detailView" class="detail-view" hidden aria-live="polite"><button class="back-link" type="button" onclick="showArchive()"><span aria-hidden="true">←</span> 전체 계보로</button><div id="personDetail"></div></section>
+  </main>
+  <div id="mapModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mapTitle"><div class="modal-backdrop" onclick="closeMap()"></div><div class="modal-panel"><div class="modal-head"><div><p class="eyebrow">LOCATION</p><h2 id="mapTitle">묘역 위치</h2></div><button class="icon-button" type="button" onclick="closeMap()" aria-label="지도 닫기">×</button></div><div id="mapContent" class="map-content"></div></div></div>
+  <footer><p>상산김씨 세보 · 가문의 기억을 보존합니다</p><small>© 2017–2026 JONGBAEK</small></footer>
 </body>
 </html>
