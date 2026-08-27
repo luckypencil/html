@@ -53,7 +53,7 @@
     }
 
     var roots = genData.filter(function (person) { return !getParent(person[0]); });
-    var resultNote = keyword ? '<div class="tree-search-result"><span>검색 결과 <strong>' + matchIds.length + '</strong>명을 계보 안에 표시했습니다.</span><button type="button" onclick="focusSearchResult()">결과 위치 보기 <span aria-hidden="true">↓</span></button></div>' : '<p class="tree-gesture-hint"><span aria-hidden="true">↔</span> 좌우로 밀어 분기 계보를 확인하세요</p>';
+    var resultNote = keyword ? '<div class="tree-search-result"><span>검색 결과 <strong>' + matchIds.length + '</strong>명을 계보 안에 표시했습니다.</span><button type="button" onclick="focusSearchResult()">결과 위치 보기 <span aria-hidden="true">↓</span></button></div>' : '<p class="tree-gesture-hint"><span aria-hidden="true">↓</span> 위에서 아래로 세대가 이어집니다 <span aria-hidden="true">·</span> 좌우로 밀어 분기를 확인하세요</p>';
     list.innerHTML = resultNote + '<div class="tree-scroll" tabindex="0" aria-label="상산김씨 세대 연결도. 좌우로 스크롤할 수 있습니다."><div class="family-tree"><ul>' + roots.map(renderBranch).join("") + '</ul></div></div>';
 
     requestAnimationFrame(function () {

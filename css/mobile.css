@@ -217,6 +217,33 @@
   .family-tree li { min-width: 190px; padding-inline: 6px; }
   .tree-person { width: 178px; min-height: 106px; padding: 14px; }
   .tree-name { font-size: 14px; }
+  .family-tree li::before,
+  .family-tree li::after { border-width: 0; border-top-width: 3px; border-color: rgba(181, 138, 66, .7); }
+  .family-tree li::after { border-left-width: 3px; }
+  .family-tree li:first-child::before,
+  .family-tree li:last-child::after { border-top-color: transparent; }
+  .family-tree li:last-child::before { border-right-width: 3px; border-color: rgba(181, 138, 66, .7); }
+  .family-tree ul ul::before { border-left-width: 3px; border-color: rgba(181, 138, 66, .7); }
+  .family-tree ul ul::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 27px;
+    left: calc(50% - 5px);
+    width: 8px;
+    height: 8px;
+    border-right: 3px solid var(--gold);
+    border-bottom: 3px solid var(--gold);
+    transform: rotate(45deg);
+  }
+  .tree-person::before {
+    top: -8px;
+    left: calc(50% - 7px);
+    width: 11px;
+    height: 11px;
+    border-width: 3px;
+    box-shadow: 0 0 0 3px rgba(181, 138, 66, .1);
+  }
   .tree-search-result { margin-top: -12px; }
   .tree-search-result { align-items: flex-start; flex-direction: column; }
   .tree-search-result button { width: 100%; }
