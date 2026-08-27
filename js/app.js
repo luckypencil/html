@@ -53,7 +53,7 @@
     }
 
     var roots = genData.filter(function (person) { return !getParent(person[0]); });
-    var resultNote = keyword ? '<p class="tree-search-result">검색 결과 <strong>' + matchIds.length + '</strong>명을 계보 안에 표시했습니다.</p>' : '';
+    var resultNote = keyword ? '<div class="tree-search-result"><span>검색 결과 <strong>' + matchIds.length + '</strong>명을 계보 안에 표시했습니다.</span><button type="button" onclick="focusSearchResult()">결과 위치 보기 <span aria-hidden="true">↓</span></button></div>' : '<p class="tree-gesture-hint"><span aria-hidden="true">↔</span> 좌우로 밀어 분기 계보를 확인하세요</p>';
     list.innerHTML = resultNote + '<div class="tree-scroll" tabindex="0" aria-label="상산김씨 세대 연결도. 좌우로 스크롤할 수 있습니다."><div class="family-tree"><ul>' + roots.map(renderBranch).join("") + '</ul></div></div>';
 
     requestAnimationFrame(function () {
@@ -66,6 +66,11 @@
       scroller.scrollLeft = Math.max(0, targetCenter - (scroller.clientWidth / 2));
     });
   }
+
+  window.focusSearchResult = function () {
+    var target = document.querySelector(".tree-person.search-match");
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+  };
 
   function renderArchive(target) {
     closeMap();
@@ -113,6 +118,7 @@
       var node = ancestor[0] === person[0] ? '<span class="path-current">' + label + '</span>' : '<button type="button" onclick="showPerson(' + ancestor[0] + ')">' + label + '</button>';
       return (index ? '<span class="path-arrow" aria-hidden="true">›</span>' : '') + node;
     }).join("");
+    var breadcrumbHtml = ancestorPath.length > 1 ? '<nav class="lineage-path" aria-label="현재 인물까지의 계보">' + pathHtml + '</nav>' : "";
     var photoHtml = photos.length ? photos.map(function (photo) {
       return '<button class="photo-button" type="button" onclick="openImage(\'' + photo + '\', \'' + escapeHtml(cleanName(person[3])) + '\')"><img src="image/' + encodeURIComponent(photo) + '" alt="' + escapeHtml(cleanName(person[3])) + ' 묘역 사진" loading="lazy"></button>';
     }).join("") : '<div class="no-photo">등록된 사진이 없습니다.</div>';
@@ -129,7 +135,7 @@
     children.forEach(function (child) { navHtml += '<button class="nav-card" type="button" onclick="showPerson(' + child[0] + ')"><small>다음 세대 · ' + child[1] + '世</small>' + escapeHtml(cleanName(child[3])) + '</button>'; });
     if (!navHtml) navHtml = '<p class="person-meta">연결된 앞·뒤 세대가 없습니다.</p>';
 
-    document.getElementById("personDetail").innerHTML = '<nav class="lineage-path" aria-label="현재 인물까지의 계보">' + pathHtml + '</nav><div class="detail-hero"><div><span class="generation-badge">' + person[1] + '世 기록</span><p class="eyebrow">ANCESTOR RECORD</p><h1>' + escapeHtml(cleanName(person[3])) + '</h1><p class="section-note">' + escapeHtml(person[3]) + '</p></div>' + (person[5] ? '<button class="map-button" type="button" onclick="openMap(' + id + ')">⌖ 묘역 지도 보기</button>' : '') + '</div><div class="detail-grid"><section class="panel"><h2>묘역 사진</h2><div class="photo-grid">' + photoHtml + '</div></section><aside><section class="panel"><h2>배우자 기록</h2><div class="relative-list">' + spouseHtml + '</div><h2>세대 연결</h2><div class="family-nav">' + navHtml + '</div></section></aside></div>';
+    document.getElementById("personDetail").innerHTML = breadcrumbHtml + '<div class="detail-hero"><div><span class="generation-badge">' + person[1] + '世 기록</span><p class="eyebrow">ANCESTOR RECORD</p><h1>' + escapeHtml(cleanName(person[3])) + '</h1><p class="section-note">' + escapeHtml(person[3]) + '</p></div>' + (person[5] ? '<button class="map-button" type="button" onclick="openMap(' + id + ')"><span class="map-pin" aria-hidden="true"></span>묘역 지도 보기</button>' : '') + '</div><div class="detail-grid"><section class="panel"><h2>묘역 사진</h2><div class="photo-grid">' + photoHtml + '</div></section><aside><section class="panel"><h2>배우자 기록</h2><div class="relative-list">' + spouseHtml + '</div><h2>세대 연결</h2><div class="family-nav">' + navHtml + '</div></section></aside></div>';
     document.getElementById("archiveView").hidden = true;
     document.getElementById("detailView").hidden = false;
     if (history.state && history.state.view === "detail") {
