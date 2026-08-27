@@ -12,6 +12,16 @@
     return genData.find(function (person) { return person[2].indexOf(Number(id)) !== -1; });
   }
 
+  function getAncestorPath(id) {
+    var path = [];
+    var current = getPerson(id);
+    while (current) {
+      path.unshift(current);
+      current = getParent(current[0]);
+    }
+    return path;
+  }
+
   function cleanName(value) {
     return value.replace(/\s*묘지.*$/, "").trim();
   }
@@ -25,25 +35,36 @@
   function renderLineage(query) {
     var list = document.getElementById("lineageList");
     var keyword = (query || "").trim().toLocaleLowerCase("ko");
-    var matches = genData.filter(function (person) {
+    var matchIds = genData.filter(function (person) {
       return !keyword || person[3].toLocaleLowerCase("ko").indexOf(keyword) !== -1 || String(person[1]).indexOf(keyword) !== -1;
-    });
-    var generations = {};
-    matches.forEach(function (person) {
-      if (!generations[person[1]]) generations[person[1]] = [];
-      generations[person[1]].push(person);
-    });
-    var keys = Object.keys(generations).sort(function (a, b) { return Number(a) - Number(b); });
-    if (!keys.length) {
+    }).map(function (person) { return person[0]; });
+
+    if (keyword && !matchIds.length) {
       list.innerHTML = '<div class="empty-state"><strong>검색 결과가 없습니다.</strong><br>다른 이름이나 호를 입력해 보세요.</div>';
       return;
     }
-    list.innerHTML = keys.map(function (generation) {
-      var cards = generations[generation].map(function (person) {
-        return '<button class="person-card" type="button" onclick="showPerson(' + person[0] + ')"><span class="person-name">' + escapeHtml(cleanName(person[3])) + '</span><span class="person-meta">' + generation + '世 · 기록 보기</span></button>';
-      }).join("");
-      return '<div class="generation-row"><div class="generation-label"><span>' + generation + '世</span></div><div class="person-group">' + cards + '</div></div>';
-    }).join("");
+
+    function renderBranch(person) {
+      var children = person[2].map(getPerson).filter(Boolean);
+      var isMatch = !keyword || matchIds.indexOf(person[0]) !== -1;
+      var cardClass = "tree-person" + (keyword ? (isMatch ? " search-match" : " search-muted") : "");
+      var childHtml = children.length ? '<ul>' + children.map(renderBranch).join("") + '</ul>' : "";
+      return '<li><button class="' + cardClass + '" type="button" onclick="showPerson(' + person[0] + ')"><span class="tree-generation">' + person[1] + '世</span><span class="tree-name">' + escapeHtml(cleanName(person[3])) + '</span><span class="tree-action">기록 보기 <span aria-hidden="true">→</span></span></button>' + childHtml + '</li>';
+    }
+
+    var roots = genData.filter(function (person) { return !getParent(person[0]); });
+    var resultNote = keyword ? '<p class="tree-search-result">검색 결과 <strong>' + matchIds.length + '</strong>명을 계보 안에 표시했습니다.</p>' : '';
+    list.innerHTML = resultNote + '<div class="tree-scroll" tabindex="0" aria-label="상산김씨 세대 연결도. 좌우로 스크롤할 수 있습니다."><div class="family-tree"><ul>' + roots.map(renderBranch).join("") + '</ul></div></div>';
+
+    requestAnimationFrame(function () {
+      var scroller = list.querySelector(".tree-scroll");
+      var target = keyword ? list.querySelector(".search-match") : list.querySelector(".family-tree > ul > li > .tree-person");
+      if (!scroller || !target) return;
+      var scrollerRect = scroller.getBoundingClientRect();
+      var targetRect = target.getBoundingClientRect();
+      var targetCenter = targetRect.left - scrollerRect.left + scroller.scrollLeft + (targetRect.width / 2);
+      scroller.scrollLeft = Math.max(0, targetCenter - (scroller.clientWidth / 2));
+    });
   }
 
   function renderArchive(target) {
@@ -86,6 +107,12 @@
     var children = person[2].map(getPerson).filter(Boolean);
     var photos = person[6] || [];
     var spouses = person[4] || [];
+    var ancestorPath = getAncestorPath(id);
+    var pathHtml = ancestorPath.map(function (ancestor, index) {
+      var label = '<span class="path-generation">' + ancestor[1] + '世</span>' + escapeHtml(cleanName(ancestor[3]));
+      var node = ancestor[0] === person[0] ? '<span class="path-current">' + label + '</span>' : '<button type="button" onclick="showPerson(' + ancestor[0] + ')">' + label + '</button>';
+      return (index ? '<span class="path-arrow" aria-hidden="true">›</span>' : '') + node;
+    }).join("");
     var photoHtml = photos.length ? photos.map(function (photo) {
       return '<button class="photo-button" type="button" onclick="openImage(\'' + photo + '\', \'' + escapeHtml(cleanName(person[3])) + '\')"><img src="image/' + encodeURIComponent(photo) + '" alt="' + escapeHtml(cleanName(person[3])) + ' 묘역 사진" loading="lazy"></button>';
     }).join("") : '<div class="no-photo">등록된 사진이 없습니다.</div>';
@@ -102,7 +129,7 @@
     children.forEach(function (child) { navHtml += '<button class="nav-card" type="button" onclick="showPerson(' + child[0] + ')"><small>다음 세대 · ' + child[1] + '世</small>' + escapeHtml(cleanName(child[3])) + '</button>'; });
     if (!navHtml) navHtml = '<p class="person-meta">연결된 앞·뒤 세대가 없습니다.</p>';
 
-    document.getElementById("personDetail").innerHTML = '<div class="detail-hero"><div><span class="generation-badge">' + person[1] + '世 기록</span><p class="eyebrow">ANCESTOR RECORD</p><h1>' + escapeHtml(cleanName(person[3])) + '</h1><p class="section-note">' + escapeHtml(person[3]) + '</p></div>' + (person[5] ? '<button class="map-button" type="button" onclick="openMap(' + id + ')">⌖ 묘역 지도 보기</button>' : '') + '</div><div class="detail-grid"><section class="panel"><h2>묘역 사진</h2><div class="photo-grid">' + photoHtml + '</div></section><aside><section class="panel"><h2>배우자 기록</h2><div class="relative-list">' + spouseHtml + '</div><h2>세대 연결</h2><div class="family-nav">' + navHtml + '</div></section></aside></div>';
+    document.getElementById("personDetail").innerHTML = '<nav class="lineage-path" aria-label="현재 인물까지의 계보">' + pathHtml + '</nav><div class="detail-hero"><div><span class="generation-badge">' + person[1] + '世 기록</span><p class="eyebrow">ANCESTOR RECORD</p><h1>' + escapeHtml(cleanName(person[3])) + '</h1><p class="section-note">' + escapeHtml(person[3]) + '</p></div>' + (person[5] ? '<button class="map-button" type="button" onclick="openMap(' + id + ')">⌖ 묘역 지도 보기</button>' : '') + '</div><div class="detail-grid"><section class="panel"><h2>묘역 사진</h2><div class="photo-grid">' + photoHtml + '</div></section><aside><section class="panel"><h2>배우자 기록</h2><div class="relative-list">' + spouseHtml + '</div><h2>세대 연결</h2><div class="family-nav">' + navHtml + '</div></section></aside></div>';
     document.getElementById("archiveView").hidden = true;
     document.getElementById("detailView").hidden = false;
     if (history.state && history.state.view === "detail") {
