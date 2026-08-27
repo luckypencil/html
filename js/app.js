@@ -48,13 +48,14 @@
       var children = person[2].map(getPerson).filter(Boolean);
       var isMatch = !keyword || matchIds.indexOf(person[0]) !== -1;
       var cardClass = "tree-person" + (keyword ? (isMatch ? " search-match" : " search-muted") : "");
-      var childHtml = children.length ? '<ul>' + children.map(renderBranch).join("") + '</ul>' : "";
+      var childClass = children.length > 1 ? "branch-group" : "single-line";
+      var childHtml = children.length ? '<ul class="' + childClass + '">' + children.map(renderBranch).join("") + '</ul>' : "";
       return '<li><button class="' + cardClass + '" type="button" onclick="showPerson(' + person[0] + ')"><span class="tree-generation">' + person[1] + '世</span><span class="tree-name">' + escapeHtml(cleanName(person[3])) + '</span><span class="tree-action">기록 보기 <span aria-hidden="true">→</span></span></button>' + childHtml + '</li>';
     }
 
     var roots = genData.filter(function (person) { return !getParent(person[0]); });
-    var resultNote = keyword ? '<div class="tree-search-result"><span>검색 결과 <strong>' + matchIds.length + '</strong>명을 계보 안에 표시했습니다.</span><button type="button" onclick="focusSearchResult()">결과 위치 보기 <span aria-hidden="true">↓</span></button></div>' : '<p class="tree-gesture-hint"><span aria-hidden="true">↓</span> 위에서 아래로 세대가 이어집니다 <span aria-hidden="true">·</span> 좌우로 밀어 분기를 확인하세요</p>';
-    list.innerHTML = resultNote + '<div class="tree-scroll" tabindex="0" aria-label="상산김씨 세대 연결도. 좌우로 스크롤할 수 있습니다."><div class="family-tree"><ul>' + roots.map(renderBranch).join("") + '</ul></div></div>';
+    var resultNote = keyword ? '<div class="tree-search-result"><span>검색 결과 <strong>' + matchIds.length + '</strong>명을 계보 안에 표시했습니다.</span><button type="button" onclick="focusSearchResult()">결과 위치 보기 <span aria-hidden="true">↓</span></button></div>' : '<p class="tree-gesture-hint"><span aria-hidden="true">↓</span> 위에서 아래로 세대가 이어지며, 갈라지는 선은 계통의 분기를 나타냅니다.</p>';
+    list.innerHTML = resultNote + '<div class="tree-scroll" tabindex="0" aria-label="상산김씨 세대 연결도"><div class="family-tree"><ul>' + roots.map(renderBranch).join("") + '</ul></div></div>';
 
     requestAnimationFrame(function () {
       var scroller = list.querySelector(".tree-scroll");

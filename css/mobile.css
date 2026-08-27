@@ -248,6 +248,85 @@
   .tree-search-result { align-items: flex-start; flex-direction: column; }
   .tree-search-result button { width: 100%; }
   .tree-gesture-hint { display: block; }
+
+  /* Mobile lineage becomes a contained vertical flow with no horizontal canvas. */
+  .tree-scroll {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+    padding: 18px 12px 28px;
+    overflow: visible;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+  }
+  .family-tree,
+  .family-tree ul {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .family-tree ul { display: block; padding-top: 34px; }
+  .family-tree > ul { padding-top: 0; }
+  .family-tree li,
+  .family-tree li:only-child {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+  }
+  .family-tree li::before,
+  .family-tree li::after { display: none; }
+  .tree-person {
+    display: flex;
+    width: min(100%, 320px);
+    min-height: 100px;
+    margin-inline: auto;
+  }
+  .family-tree ul ul::before {
+    top: 0;
+    left: 50%;
+    height: 34px;
+    border-left: 3px solid rgba(181, 138, 66, .72);
+  }
+  .family-tree ul ul::after {
+    top: 22px;
+    left: calc(50% - 5px);
+  }
+  .family-tree ul.branch-group {
+    width: calc(100% - 20px);
+    margin: 34px 0 0 20px;
+    padding: 10px 0 4px 18px;
+    border-top: 3px solid rgba(181, 138, 66, .72);
+    border-left: 3px solid rgba(181, 138, 66, .72);
+    border-radius: 14px 0 0 0;
+    background: linear-gradient(90deg, rgba(181, 138, 66, .055), transparent 36%);
+  }
+  .family-tree ul.branch-group::before {
+    top: -34px;
+    left: calc(50% - 10px);
+    height: 34px;
+  }
+  .family-tree ul.branch-group::after {
+    top: -13px;
+    left: calc(50% - 15px);
+  }
+  .branch-group > li {
+    position: relative;
+    padding: 12px 0 18px;
+  }
+  .branch-group > li::before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 38px;
+    left: -18px;
+    width: 18px;
+    border-top: 3px solid rgba(181, 138, 66, .72);
+  }
+  .branch-group > li > .tree-person { width: 100%; margin: 0; }
+  .branch-group > li > .tree-person::before {
+    top: 31px;
+    left: -9px;
+  }
   .generation-row { grid-template-columns: 42px minmax(0, 1fr); gap: 10px; }
   .generation-label span { width: 40px; height: 40px; font-size: 12px; }
   .person-group { min-width: 0; gap: 9px; padding-bottom: 16px; }
