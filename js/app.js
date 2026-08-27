@@ -54,8 +54,20 @@
     }
 
     var roots = genData.filter(function (person) { return !getParent(person[0]); });
+    var generationCounts = {};
+    genData.forEach(function (person) { generationCounts[person[1]] = (generationCounts[person[1]] || 0) + 1; });
+    var mobileFlow = genData.slice().sort(function (a, b) {
+      return a[1] === b[1] ? a[0] - b[0] : a[1] - b[1];
+    }).map(function (person, index) {
+      var parent = getParent(person[0]);
+      var isMatch = !keyword || matchIds.indexOf(person[0]) !== -1;
+      var cardClass = "mobile-flow-card" + (keyword ? (isMatch ? " search-match" : " search-muted") : "");
+      var branchBadge = generationCounts[person[1]] > 1 ? '<span class="mobile-branch-badge">분기</span>' : "";
+      var parentLabel = parent ? '<span class="mobile-parent"><span aria-hidden="true">↳</span> ' + escapeHtml(cleanName(parent[3])) + '에서 이어짐</span>' : '<span class="mobile-parent mobile-origin">계보의 시작</span>';
+      return '<div class="mobile-flow-row ' + (index % 2 ? "flow-right" : "flow-left") + '"><button class="' + cardClass + '" type="button" onclick="showPerson(' + person[0] + ')"><span class="mobile-flow-top"><span class="tree-generation">' + person[1] + '世</span>' + branchBadge + '</span><span class="tree-name">' + escapeHtml(cleanName(person[3])) + '</span>' + parentLabel + '</button></div>';
+    }).join("");
     var resultNote = keyword ? '<div class="tree-search-result"><span>검색 결과 <strong>' + matchIds.length + '</strong>명을 계보 안에 표시했습니다.</span><button type="button" onclick="focusSearchResult()">결과 위치 보기 <span aria-hidden="true">↓</span></button></div>' : '<p class="tree-gesture-hint"><span aria-hidden="true">↓</span> 위에서 아래로 세대가 이어지며, 갈라지는 선은 계통의 분기를 나타냅니다.</p>';
-    list.innerHTML = resultNote + '<div class="tree-scroll" tabindex="0" aria-label="상산김씨 세대 연결도"><div class="family-tree"><ul>' + roots.map(renderBranch).join("") + '</ul></div></div>';
+    list.innerHTML = resultNote + '<div class="tree-scroll" tabindex="0" aria-label="상산김씨 세대 연결도"><div class="family-tree"><ul>' + roots.map(renderBranch).join("") + '</ul></div></div><div class="mobile-lineage-flow" aria-label="상산김씨 모바일 세대 흐름">' + mobileFlow + '</div>';
 
     requestAnimationFrame(function () {
       var scroller = list.querySelector(".tree-scroll");
@@ -69,7 +81,7 @@
   }
 
   window.focusSearchResult = function () {
-    var target = document.querySelector(".tree-person.search-match");
+    var target = window.matchMedia("(max-width: 640px)").matches ? document.querySelector(".mobile-flow-card.search-match") : document.querySelector(".tree-person.search-match");
     if (target) target.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
   };
 

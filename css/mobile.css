@@ -150,6 +150,7 @@
 .tree-search-result button { flex: 0 0 auto; min-height: 38px; padding: 7px 12px; color: var(--forest); background: var(--white); border: 1px solid var(--line); border-radius: 999px; font-size: 12px; font-weight: 700; }
 .tree-search-result button:hover { border-color: var(--gold); }
 .tree-gesture-hint { display: none; margin: -16px 0 12px; color: var(--muted); font-size: 12px; }
+.mobile-lineage-flow { display: none; }
 .map-pin { position: relative; display: inline-block; width: 13px; height: 13px; border: 2px solid currentColor; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
 .map-pin::after { content: ""; position: absolute; top: 3px; left: 3px; width: 3px; height: 3px; background: currentColor; border-radius: 50%; }
 
@@ -250,15 +251,79 @@
   .tree-gesture-hint { display: block; }
 
   /* Mobile lineage becomes a contained vertical flow with no horizontal canvas. */
-  .tree-scroll {
+  .tree-scroll { display: none; }
+  .mobile-lineage-flow {
+    position: relative;
+    display: block;
     width: 100%;
     max-width: 100%;
-    margin-inline: 0;
-    padding: 18px 12px 28px;
-    overflow: visible;
-    border: 1px solid var(--line);
-    border-radius: 18px;
+    overflow: hidden;
+    padding: 12px 0 6px;
   }
+  .mobile-lineage-flow::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    bottom: 56px;
+    left: 18px;
+    width: 3px;
+    background: linear-gradient(var(--forest), var(--gold) 12%, rgba(181, 138, 66, .5));
+    border-radius: 999px;
+  }
+  .mobile-flow-row {
+    --flow-offset: 48px;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    padding-left: var(--flow-offset);
+    margin-bottom: 18px;
+  }
+  .mobile-flow-row.flow-right { --flow-offset: 28px; }
+  .mobile-flow-row::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: 28px;
+    left: 13px;
+    width: 9px;
+    height: 9px;
+    background: var(--gold);
+    border: 3px solid var(--paper);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(181, 138, 66, .2);
+  }
+  .mobile-flow-row:first-child::before { background: var(--forest); }
+  .mobile-flow-row::after {
+    content: "";
+    position: absolute;
+    top: 34px;
+    left: 22px;
+    width: calc(var(--flow-offset) - 22px);
+    height: 2px;
+    background: rgba(181, 138, 66, .66);
+  }
+  .mobile-flow-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    min-height: 112px;
+    padding: 16px 18px;
+    color: var(--ink);
+    text-align: left;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(26, 42, 36, .07);
+  }
+  .mobile-flow-top { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 10px; }
+  .mobile-branch-badge { padding: 3px 8px; color: var(--forest); background: #e6ece8; border-radius: 999px; font-size: 9px; font-weight: 700; }
+  .mobile-flow-card .tree-name { margin-top: 6px; font-size: 16px; }
+  .mobile-parent { display: block; overflow: hidden; max-width: 100%; margin-top: auto; padding-top: 11px; color: var(--muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+  .mobile-origin { color: var(--forest); font-weight: 700; }
+  .mobile-flow-card.search-muted { opacity: .18; }
+  .mobile-flow-card.search-match { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(181, 138, 66, .18), 0 10px 26px rgba(26, 42, 36, .1); }
   .family-tree,
   .family-tree ul {
     width: 100%;
