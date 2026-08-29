@@ -47,7 +47,7 @@
     function renderBranch(person) {
       var children = person[2].map(getPerson).filter(Boolean);
       var isMatch = !keyword || matchIds.indexOf(person[0]) !== -1;
-      var cardClass = "tree-person" + (keyword ? (isMatch ? " search-match" : " search-muted") : "");
+      var cardClass = "tree-person" + (children.length ? " has-children" : "") + (keyword ? (isMatch ? " search-match" : " search-muted") : "");
       var childClass = children.length > 1 ? "branch-group" : "single-line";
       var childHtml = children.length ? '<ul class="' + childClass + '">' + children.map(renderBranch).join("") + '</ul>' : "";
       return '<li><button class="' + cardClass + '" type="button" onclick="showPerson(' + person[0] + ')"><span class="tree-generation">' + person[1] + '世</span><span class="tree-name">' + escapeHtml(cleanName(person[3])) + '</span><span class="tree-action">기록 보기 <span aria-hidden="true">→</span></span></button>' + childHtml + '</li>';
