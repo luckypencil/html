@@ -1,4 +1,6 @@
 /* Mobile-first refinements layered over the desktop design. */
+.brand strong { font-size: 30px; line-height: 1.15; }
+.brand small { margin-top: 0; }
 .hero::before {
   opacity: .32;
   background-image:
@@ -222,7 +224,7 @@
   }
   .brand { min-width: 0; gap: 9px; }
   .brand-mark { flex: 0 0 36px; width: 36px; height: 36px; }
-  .brand strong { overflow: hidden; font-size: 14px; text-overflow: ellipsis; white-space: nowrap; }
+  .brand strong { overflow: hidden; font-size: 24px; text-overflow: ellipsis; white-space: nowrap; }
   .header-action { flex: 0 0 auto; min-height: 42px; padding: 8px 13px; }
 
   .hero { min-height: auto; padding: 7px 14px 6px; }
@@ -651,7 +653,7 @@
 
 @media (max-width: 360px) {
   .site-header { padding-inline: 12px; }
-  .brand strong { max-width: 142px; font-size: 13px; }
+  .brand strong { max-width: 150px; font-size: 22px; }
   .header-action { padding-inline: 10px; }
   .hero { padding-inline: 16px; }
   .hero h1 { font-size: 29px; }
