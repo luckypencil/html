@@ -15,6 +15,8 @@
 .legend-line::before { content: ""; position: absolute; top: 0; left: 8px; width: 2px; height: 12px; background: rgba(181, 138, 66, .7); }
 .legend-branch::before { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 8px; border-top: 2px solid rgba(181, 138, 66, .7); border-right: 2px solid rgba(181, 138, 66, .7); border-radius: 0 7px 0 0; }
 .tree-search-result > div { display: flex; gap: 8px; }
+.spouse-photo-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; margin-top: 11px; }
+.relative-item .spouse-photo-actions button { width: 100%; margin-top: 0; }
 .detail-hero { padding: clamp(30px, 4vw, 52px) 0 32px; }
 .detail-grid { margin-top: 32px; }
 .modal-panel { overscroll-behavior: contain; }
@@ -46,6 +48,7 @@
   .tree-search-result > div { width: 100%; }
   .tree-search-result button { flex: 1; width: auto; }
   .detail-hero { padding: 20px 0 22px; }
+  .spouse-photo-actions { grid-template-columns: 1fr; }
   .detail-grid { margin-top: 18px; }
   .back-to-top { right: 14px; bottom: calc(14px + env(safe-area-inset-bottom)); min-width: 48px; min-height: 48px; padding-inline: 13px; }
 }

@@ -165,8 +165,13 @@
     }).join("") : '<div class="no-photo">등록된 사진이 없습니다.</div>';
     var spouseHtml = "";
     for (var i = 0; i < spouses.length; i += 3) {
+      var spousePhotos = Array.isArray(spouses[i + 1]) ? spouses[i + 1] : (spouses[i + 1] ? [spouses[i + 1]] : []);
       spouseHtml += '<div class="relative-item"><strong>' + escapeHtml(spouses[i]) + '</strong>';
-      if (spouses[i + 1]) spouseHtml += '<span class="person-meta">사진 기록 있음</span>';
+      if (spousePhotos.length) {
+        spouseHtml += '<div class="spouse-photo-actions">' + spousePhotos.map(function (photo, photoIndex) {
+          return '<button type="button" onclick="openImage(\'' + photo + '\', \'' + escapeHtml(spouses[i]) + '\')">묘역 사진 ' + (photoIndex + 1) + ' 보기</button>';
+        }).join("") + '</div>';
+      }
       if (spouses[i + 2]) spouseHtml += '<button type="button" onclick="openMapForSpouse(' + id + ',' + i + ')">묘역 지도 보기</button>';
       spouseHtml += '</div>';
     }
