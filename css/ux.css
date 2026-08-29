@@ -39,9 +39,7 @@
   .generation-select select { min-height: 40px; max-width: 118px; padding: 0 30px 0 12px; color: var(--forest); background: var(--white); border: 1px solid var(--line); border-radius: 999px; font-size: 12px; font-weight: 700; }
   .search-box { min-height: 44px; }
   .section-note { margin: 5px 0 10px; font-size: 12px; }
-  .tree-legend { display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 6px; margin: 0 0 7px; font-size: 10px; }
-  .tree-legend span { gap: 4px; }
-  .tree-legend i { flex-basis: 15px; width: 15px; }
+  .tree-legend { display: none; }
   .mobile-generation-row { scroll-margin-top: 76px; }
   .mobile-generation-cards .mobile-parent { font-size: 11px; line-height: 1.45; }
   .tree-search-result { gap: 8px; margin: 0 0 8px; }
@@ -55,5 +53,4 @@
 @media (max-width: 360px) {
   .section-heading h2 { font-size: 25px; }
   .generation-select select { max-width: 108px; padding-left: 10px; }
-  .tree-legend { font-size: 9px; }
 }
