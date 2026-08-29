@@ -14,9 +14,13 @@
   line-height: 1.22;
   letter-spacing: -.045em;
 }
-.hero { padding-block: clamp(64px, 8vw, 112px); }
+.hero { padding-block: clamp(24px, 2.5vw, 36px); }
 .hero-copy > .eyebrow + .hero-description { margin-top: 14px; }
 .hero-description { max-width: 700px; word-break: keep-all; }
+.hero-stats { margin-top: 24px; padding-top: 16px; }
+.hero-visual { min-height: 190px; }
+.seal { width: 88px; height: 88px; font-size: 22px; }
+.hero-visual p { bottom: 10px; }
 
 .lineage-from {
   position: relative;
