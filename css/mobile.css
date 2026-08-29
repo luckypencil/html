@@ -208,13 +208,13 @@
   .brand strong { overflow: hidden; font-size: 14px; text-overflow: ellipsis; white-space: nowrap; }
   .header-action { flex: 0 0 auto; min-height: 42px; padding: 8px 13px; }
 
-  .hero { min-height: auto; padding: 54px 20px 46px; }
+  .hero { min-height: auto; padding: 26px 18px 22px; }
   .hero h1 { font-size: clamp(30px, 8.8vw, 38px); line-height: 1.25; word-break: keep-all; }
-  .hero-description { margin-top: 22px; font-size: 15px; line-height: 1.75; word-break: keep-all; }
-  .hero-stats { gap: 0; margin-top: 36px; padding-top: 22px; }
+  .hero-description { margin-top: 10px; font-size: 14px; line-height: 1.6; word-break: keep-all; }
+  .hero-stats { gap: 0; margin-top: 18px; padding-top: 13px; }
   .hero-stats > div { flex: 1; }
-  .hero-stats strong { font-size: 23px; }
-  .hero-stats span { font-size: 11px; }
+  .hero-stats strong { font-size: 21px; }
+  .hero-stats span { font-size: 10px; }
 
   .explorer { min-width: 0; padding: 56px 16px 80px; scroll-margin-top: 64px; }
   .section-heading h2 { font-size: 32px; }
