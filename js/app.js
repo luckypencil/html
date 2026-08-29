@@ -4,6 +4,12 @@
   var lastFocused = null;
   var pendingArchiveTarget = null;
 
+  function getFocusableElements(container) {
+    return Array.prototype.slice.call(container.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')).filter(function (element) {
+      return element.offsetParent !== null;
+    });
+  }
+
   function getPerson(id) {
     return genData.find(function (person) { return person[0] === Number(id); });
   }
@@ -67,9 +73,9 @@
         var parentLabel = parent ? '<span class="mobile-parent">' + escapeHtml(cleanName(parent[3])) + '의 다음 세대</span>' : '<span class="mobile-parent mobile-origin">계보의 시작</span>';
         return '<button class="' + cardClass + '" type="button" onclick="showPerson(' + person[0] + ')"><span class="tree-name">' + escapeHtml(cleanName(person[3])) + '</span>' + parentLabel + '<span class="tree-action">기록 보기 <span aria-hidden="true">→</span></span></button>';
       }).join("");
-      return '<div class="mobile-generation-row"><div class="mobile-generation-label"><span>' + generation + '世</span></div><div class="mobile-generation-cards">' + cards + '</div></div>';
+      return '<div id="generation-' + generation + '" class="mobile-generation-row" data-generation="' + generation + '"><div class="mobile-generation-label"><span>' + generation + '世</span></div><div class="mobile-generation-cards">' + cards + '</div></div>';
     }).join("");
-    var resultNote = keyword ? '<div class="tree-search-result"><span>검색 결과 <strong>' + matchIds.length + '</strong>명을 계보 안에 표시했습니다.</span><button type="button" onclick="focusSearchResult()">결과 위치 보기 <span aria-hidden="true">↓</span></button></div>' : '<p class="tree-gesture-hint"><span aria-hidden="true">↓</span> 위에서 아래로 세대가 이어지며, 갈라지는 선은 계통의 분기를 나타냅니다.</p>';
+    var resultNote = keyword ? '<div class="tree-search-result"><span>검색 결과 <strong>' + matchIds.length + '</strong>명을 계보 안에 표시했습니다.</span><div><button type="button" onclick="focusSearchResult()">결과 위치 보기 <span aria-hidden="true">↓</span></button><button type="button" onclick="clearPersonSearch()">검색 초기화</button></div></div>' : '<div class="tree-legend" aria-label="계보 그래프 읽는 법"><span><i class="legend-dot root" aria-hidden="true"></i>계보 시작</span><span><i class="legend-line" aria-hidden="true"></i>다음 세대</span><span><i class="legend-branch" aria-hidden="true"></i>계통 분기</span></div>';
     list.innerHTML = resultNote + '<div class="tree-scroll" tabindex="0" aria-label="상산김씨 세대 연결도"><div class="family-tree"><ul>' + roots.map(renderBranch).join("") + '</ul></div></div><div class="mobile-lineage-flow" aria-label="상산김씨 모바일 세대 흐름">' + mobileFlow + '</div>';
 
     requestAnimationFrame(function () {
@@ -86,6 +92,20 @@
   window.focusSearchResult = function () {
     var target = window.matchMedia("(max-width: 640px)").matches ? document.querySelector(".mobile-flow-card.search-match") : document.querySelector(".tree-person.search-match");
     if (target) target.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+  };
+
+  window.clearPersonSearch = function () {
+    var search = document.getElementById("personSearch");
+    search.value = "";
+    document.getElementById("clearSearch").hidden = true;
+    renderLineage("");
+    search.focus();
+  };
+
+  window.jumpToGeneration = function (generation) {
+    if (!generation) return;
+    var target = document.getElementById("generation-" + generation);
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   function renderArchive(target) {
@@ -167,22 +187,35 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  function showModal(title, content) {
+  function showModal(title, content, kind) {
+    var modalLabels = {
+      lineage: { eyebrow: "LINEAGE", close: "전체 계보 닫기" },
+      photo: { eyebrow: "PHOTO", close: "사진 닫기" },
+      location: { eyebrow: "LOCATION", close: "지도 닫기" }
+    };
+    var labels = modalLabels[kind] || { eyebrow: "ARCHIVE", close: "창 닫기" };
     lastFocused = document.activeElement;
+    document.getElementById("modalEyebrow").textContent = labels.eyebrow;
     document.getElementById("mapTitle").textContent = title;
     document.getElementById("mapContent").innerHTML = content;
+    document.getElementById("modalClose").setAttribute("aria-label", labels.close);
+    Array.prototype.forEach.call(document.querySelectorAll("#mapContent iframe"), function (frame) {
+      frame.title = title + " 지도";
+      frame.loading = "lazy";
+      frame.referrerPolicy = "no-referrer-when-downgrade";
+    });
     document.getElementById("mapModal").hidden = false;
     document.body.style.overflow = "hidden";
-    document.querySelector(".icon-button").focus();
+    document.getElementById("modalClose").focus();
   }
 
-  window.openMap = function (id) { var person = getPerson(id); if (person && person[5]) showModal("묘역 위치", person[5]); };
-  window.openMapForSpouse = function (id, index) { var person = getPerson(id); if (person && person[4][index + 2]) showModal("배우자 묘역 위치", person[4][index + 2]); };
-  window.openImage = function (photo, title) { showModal(title + " 사진", '<img src="image/' + encodeURIComponent(photo) + '" alt="' + escapeHtml(title) + ' 묘역 사진" style="width:100%;max-height:72vh;object-fit:contain;background:#111">'); };
+  window.openMap = function (id) { var person = getPerson(id); if (person && person[5]) showModal("묘역 위치", person[5], "location"); };
+  window.openMapForSpouse = function (id, index) { var person = getPerson(id); if (person && person[4][index + 2]) showModal("배우자 묘역 위치", person[4][index + 2], "location"); };
+  window.openImage = function (photo, title) { showModal(title + " 사진", '<img src="image/' + encodeURIComponent(photo) + '" alt="' + escapeHtml(title) + ' 묘역 사진" style="width:100%;max-height:72vh;object-fit:contain;background:#111">', "photo"); };
   window.openLineageGraph = function () {
     var source = document.querySelector("#lineageList .family-tree");
     if (!source) return;
-    showModal("전체 계보", '<div class="lineage-popup-intro">두 손가락이나 한 손가락으로 그래프를 이동해 전체 계보를 확인하세요.</div><div class="lineage-popup-scroll">' + source.outerHTML + '</div>');
+    showModal("전체 계보", '<div class="lineage-popup-intro">그래프를 좌우·상하로 움직여 전체 계보를 확인하세요.</div><div class="lineage-popup-scroll">' + source.outerHTML + '</div>', "lineage");
     requestAnimationFrame(function () {
       var scroller = document.querySelector(".lineage-popup-scroll");
       var root = scroller && scroller.querySelector(".family-tree > ul > li > .tree-person");
@@ -201,8 +234,50 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     renderLineage("");
-    document.getElementById("personSearch").addEventListener("input", function (event) { renderLineage(event.target.value); });
-    document.addEventListener("keydown", function (event) { if (event.key === "Escape") closeMap(); });
+    var generations = genData.map(function (person) { return person[1]; }).filter(function (generation, index, list) { return list.indexOf(generation) === index; }).sort(function (a, b) { return a - b; });
+    var generationSelect = document.getElementById("generationSelect");
+    generations.forEach(function (generation) {
+      var option = document.createElement("option");
+      option.value = generation;
+      option.textContent = generation + "세로 이동";
+      generationSelect.appendChild(option);
+    });
+    generationSelect.addEventListener("change", function (event) {
+      jumpToGeneration(event.target.value);
+      event.target.value = "";
+    });
+    document.getElementById("personSearch").addEventListener("input", function (event) {
+      document.getElementById("clearSearch").hidden = !event.target.value;
+      renderLineage(event.target.value);
+    });
+    document.getElementById("clearSearch").addEventListener("click", clearPersonSearch);
+    var backToTop = document.getElementById("backToTop");
+    backToTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+    window.addEventListener("scroll", function () { backToTop.classList.toggle("is-visible", window.scrollY > 720); }, { passive: true });
+    document.addEventListener("keydown", function (event) {
+      var modal = document.getElementById("mapModal");
+      if (modal.hidden) return;
+      if (event.key === "Escape") {
+        closeMap();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      var focusable = getFocusableElements(modal);
+      if (!focusable.length) {
+        event.preventDefault();
+        modal.querySelector(".modal-panel").focus();
+        return;
+      }
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
     var match = location.hash.match(/^#person-(\d+)$/);
     if (match) {
       var personId = Number(match[1]);
