@@ -108,6 +108,7 @@
 .family-tree li:only-child { padding-top: 0; }
 .family-tree li:first-child::before,
 .family-tree li:last-child::after { border-top-color: transparent; }
+.family-tree li:last-child::after { display: none; }
 .family-tree li:last-child::before { border-right: 2px solid rgba(181, 138, 66, .48); border-radius: 0 12px 0 0; }
 .family-tree li:first-child::after { border-radius: 12px 0 0 0; }
 .family-tree ul ul::before {
